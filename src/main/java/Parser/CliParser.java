@@ -38,13 +38,17 @@ public class CliParser {
                 help();
                 System.exit(1);
             }
-            if (commandLine.hasOption("n") || commandLine.hasOption("N")) {
+            if (commandLine.hasOption("n")) {
                 N = Integer.parseInt(commandLine.getOptionValue("n"));
+            } else if (commandLine.hasOption("N")) {
+                N = Integer.parseInt(commandLine.getOptionValue("N"));
             } else {
                 N = 1000;
             }
-            if (commandLine.hasOption("d") || commandLine.hasOption("D")) {
+            if (commandLine.hasOption("d")) {
                 D = Integer.parseInt(commandLine.getOptionValue("d"));
+            } else if (commandLine.hasOption("D")) {
+                N = Integer.parseInt(commandLine.getOptionValue("D"));
             } else {
                 D = 50;
             }
