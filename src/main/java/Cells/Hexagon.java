@@ -1,7 +1,9 @@
 package Cells;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class Hexagon {
     private final long id;
@@ -18,6 +20,26 @@ public class Hexagon {
         properties.put("F", F);
         properties.put("S", S);
         properties.put("R", (Math.random() * (max - min + 1) + min) > 0.5);
+    }
+
+    public int getParticlesAmount() {
+        int amount = 0;
+        for (Boolean value : properties.values()) {
+            if (value) {
+                amount++;
+            }
+        }
+        return amount;
+    }
+
+    public Set<String> getAvailableSlots(){
+        Set<String> keys = new HashSet<>(properties.keySet());
+        for (String key: properties.keySet()){
+            if (properties.get(key)){
+                keys.remove(key);
+            }
+        }
+        return keys;
     }
 
     public Map<String, Boolean> getProperties() {
