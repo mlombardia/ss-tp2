@@ -12,6 +12,14 @@ import static FHP.ParticlesGenerator.*;
    240° <- E . ---- . F -> 300°
 */
 
+/*
+ [i-1,j-1] <- C. _____ . B -> [i-1, j+1]
+              /         \
+[i,j-1] <- D .   [i,j]   . A -> [i, j+1]
+              \         /
+[i+1,j-1] <- E . ---- . F -> [i+1, j-1]
+*/
+
 public class ParticlesPropagator {
     private static final String A = "A";
     private static final String B = "B";
@@ -21,16 +29,16 @@ public class ParticlesPropagator {
     private static final String F = "F";
     private static final String S = "S"; //wall
 
-
     public static void propagate() {
         Hexagon hexagon;
+
+
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 hexagon = cells[i][j];
-                propagatedCells[i][j].cleanHexagon(); //clean the hexagon im gonna write on
-
                 if (!hexagon.getProperties().get(S)) {  //if it is not a wall
-                    // A -> 0°
+
+                    // A -> 0°, [i, j+1]
                     if (hexagon.getProperties().get(A)) {
                         if (cells[i][j + 1].getProperties().get(S)) { //bumped into a wall
                             propagatedCells[i][j].getProperties().put(D, true);
@@ -38,30 +46,55 @@ public class ParticlesPropagator {
                             propagatedCells[i][j + 1].getProperties().put(A, true);
                         }
                     }
-                    // B -> 60°
+
+                    // B -> 60°, [i-1, j+1]
                     if (hexagon.getProperties().get(B)) {
+                        if (cells[i - 1][j + 1].getProperties().get(S)) { //bumped into a wall
 
+                        } else {
+                            propagatedCells[i - 1][j + 1].getProperties().put(B, true);
+                        }
                     }
-                    // C -> 120°
+
+                    // C -> 120°, [i-1,j-1]
                     if (hexagon.getProperties().get(C)) {
+                        if (cells[i - 1][j - 1].getProperties().get(S)) { //bumped into a wall
 
+                        } else {
+                            propagatedCells[i - 1][j - 1].getProperties().put(C, true);
+                        }
                     }
-                    // D -> 180°
+
+                    // D -> 180°, [i,j-1]
                     if (hexagon.getProperties().get(D)) {
-
+                        if (cells[i][j - 1].getProperties().get(S)) { //bumped into a wall
+                            propagatedCells[i][j].getProperties().put(A, true);
+                        } else {
+                            propagatedCells[i][j - 1].getProperties().put(D, true);
+                        }
                     }
-                    // E -> 240°
+
+                    // E -> 240°, [i+1,j-1]
                     if (hexagon.getProperties().get(E)) {
+                        if (cells[i + 1][j - 1].getProperties().get(S)) { //bumped into a wall
 
+                        } else {
+                            propagatedCells[i + 1][j - 1].getProperties().put(C, true);
+                        }
                     }
-                    // F -> 300°
-                    if (hexagon.getProperties().get(F)) {
 
+                    // F -> 300°, [i+1, j-1]
+                    if (hexagon.getProperties().get(F)) {
+                        if (cells[i + 1][j - 1].getProperties().get(S)) { //bumped into a wall
+
+                        } else {
+                            propagatedCells[i + 1][j - 1].getProperties().put(C, true);
+                        }
                     }
                 }
+                hexagon.cleanHexagon();
             }
         }
-        cells = propagatedCells.clone(); //assign the new values
     }
 
 }
