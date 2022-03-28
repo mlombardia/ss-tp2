@@ -53,4 +53,13 @@ public class Hexagon {
     public long getId() {
         return id;
     }
+
+    public void cleanHexagon(){
+        properties.put("A", false);
+        properties.put("B", false);
+        properties.put("C", false);
+        properties.put("D", false);
+        properties.put("E", false);
+        properties.put("F", false);
+    }
 }

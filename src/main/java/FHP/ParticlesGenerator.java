@@ -1,7 +1,6 @@
 package FHP;
 
 import Cells.Hexagon;
-import Parser.CliParser;
 
 import java.util.Set;
 
@@ -13,6 +12,7 @@ public class ParticlesGenerator {
     public static int cols = 203;
     public static int partitionCol = (cols - 1) / 2;
     public static Hexagon[][] cells = new Hexagon[rows][cols];
+    public static Hexagon[][] propagatedCells = new Hexagon[rows][cols];
 
     public static void generate() {
         for (int i = 0; i < rows; i++) {
@@ -32,11 +32,11 @@ public class ParticlesGenerator {
                         cells[i][partitionCol] = new Hexagon(id, false, false, false, false, false, false, true);
                     }
                 } else {
-                    System.out.println(i + " " + j);
                     cells[i][j] = new Hexagon(id, false, false, false, false, false, false, false);
                 }
             }
         }
+        propagatedCells = cells.clone();
         for (int particle = 0; particle < N; particle++) {
             createParticle();
         }
@@ -48,7 +48,6 @@ public class ParticlesGenerator {
         while (!particleInserted) {
             row = getRandom(0, rows - 1);
             col = getRandom(0, partitionCol);
-            System.out.println("row: " + row + " | col: " + col);
             if (cells[row][col].getParticlesAmount() < 6) {
                 setParticleDirection(cells[row][col]);
                 particleInserted = true;
@@ -61,7 +60,7 @@ public class ParticlesGenerator {
         Set<String> directions = hexagon.getAvailableSlots();
         String[] directionsArray = new String[directions.size()];
         directionsArray = directions.toArray(directionsArray);
-        int direction = getRandom(0, directions.size()-1);
+        int direction = getRandom(0, directions.size() - 1);
         hexagon.getProperties().put(directionsArray[direction], true);
     }
 
