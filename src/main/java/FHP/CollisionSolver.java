@@ -5,7 +5,7 @@ import Cells.Hexagon;
 import static FHP.ParticlesGenerator.*;
 
 public class CollisionSolver {
-    public void solve() {
+    public static void solve() {
         Hexagon hexagon;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {

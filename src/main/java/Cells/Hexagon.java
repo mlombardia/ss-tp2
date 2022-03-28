@@ -24,8 +24,8 @@ public class Hexagon {
 
     public int getParticlesAmount() {
         int amount = 0;
-        for (Boolean value : properties.values()) {
-            if (value) {
+        for (String key : properties.keySet()) {
+            if (properties.get(key) && !key.equals("S") && !key.equals("R")) {
                 amount++;
             }
         }
@@ -34,6 +34,8 @@ public class Hexagon {
 
     public Set<String> getAvailableSlots() {
         Set<String> keys = new HashSet<>(properties.keySet());
+        keys.remove("S");
+        keys.remove("R");
         for (String key : properties.keySet()) {
             if (properties.get(key)) {
                 keys.remove(key);

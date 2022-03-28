@@ -32,7 +32,6 @@ public class ParticlesPropagator {
     public static void propagate() {
         Hexagon hexagon;
 
-
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 hexagon = cells[i][j];
