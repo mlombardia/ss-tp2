@@ -44,6 +44,18 @@ public class Hexagon {
         return keys;
     }
 
+    public Set<String> getOccupiedSlots(){
+        Set<String> keys = new HashSet<>(properties.keySet());
+        keys.remove("S");
+        keys.remove("R");
+        for (String key: properties.keySet()) {
+            if (!properties.get(key)){
+                keys.remove(key);
+            }
+        }
+        return keys;
+    }
+
     public Map<String, Boolean> getProperties() {
         return properties;
     }
