@@ -56,12 +56,22 @@ public class Hexagon {
         return keys;
     }
 
+    public boolean isRandom(){
+        return properties.get("R");
+    }
+
     public Map<String, Boolean> getProperties() {
         return properties;
     }
 
     public void setProperties(String key, Boolean value) {
         this.properties.put(key, value);
+    }
+
+    public void setProperties(Set<String> keys, Boolean value){
+        for (String key : keys){
+            this.properties.put(key,value);
+        }
     }
 
     public long getId() {
