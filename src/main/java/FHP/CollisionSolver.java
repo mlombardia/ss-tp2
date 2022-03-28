@@ -12,10 +12,10 @@ public class CollisionSolver {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 hexagon = propagatedCells[i][j];
-                switch (hexagon.getParticlesAmount()){
+                switch (hexagon.getParticlesAmount()) {
                     case 2:
-                        if (particlesAreContiguous(hexagon.getOccupiedSlots())){
-                            if (hexagon.isRandom()){
+                        if (particlesAreContiguous(hexagon.getOccupiedSlots())) {
+                            if (hexagon.isRandom()) {
                                 hexagon.setProperties("B", true);
                                 hexagon.setProperties("E", true);
                                 hexagon.setProperties(hexagon.getOccupiedSlots(), false);
@@ -24,15 +24,15 @@ public class CollisionSolver {
                                 hexagon.setProperties("F", true);
                                 hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                             }
-                        } else if (particlesAreDiagonal(hexagon.getOccupiedSlots())){
+                        } else if (particlesAreDiagonal(hexagon.getOccupiedSlots())) {
                             hexagon.setProperties("A", true);
                             hexagon.setProperties("D", true);
                             hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                         }
                         break;
                     case 3:
-                        if (areSymmetrical(hexagon.getOccupiedSlots())){
-                            if (firstCase(hexagon.getOccupiedSlots())){
+                        if (areSymmetrical(hexagon.getOccupiedSlots())) {
+                            if (firstCase(hexagon.getOccupiedSlots())) {
                                 hexagon.setProperties("A", true);
                                 hexagon.setProperties("C", true);
                                 hexagon.setProperties("E", true);
@@ -46,22 +46,22 @@ public class CollisionSolver {
                         }
                         break;
                     case 4:
-                        if (correctForm(hexagon.getOccupiedSlots())){
-                            if (isBCEF(hexagon.getOccupiedSlots())){
-                                if (hexagon.isRandom()){
+                        if (correctForm(hexagon.getOccupiedSlots())) {
+                            if (isBCEF(hexagon.getOccupiedSlots())) {
+                                if (hexagon.isRandom()) {
                                     hexagon.setProperties("A", true);
                                     hexagon.setProperties("D", true);
                                     hexagon.setProperties("C", true);
                                     hexagon.setProperties("F", true);
                                     hexagon.setProperties(hexagon.getOccupiedSlots(), false);
-                                }else{
+                                } else {
                                     hexagon.setProperties("A", true);
                                     hexagon.setProperties("D", true);
                                     hexagon.setProperties("B", true);
                                     hexagon.setProperties("E", true);
                                     hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                                 }
-                            }else{
+                            } else {
                                 hexagon.setProperties("B", true);
                                 hexagon.setProperties("E", true);
                                 hexagon.setProperties("C", true);
@@ -73,6 +73,7 @@ public class CollisionSolver {
                     default:
                         break;
                 }
+                cells[i][j] = new Hexagon(hexagon);
                 hexagon.cleanHexagon();
             }
         }

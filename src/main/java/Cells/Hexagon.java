@@ -9,6 +9,11 @@ public class Hexagon {
     private final long id;
     private Map<String, Boolean> properties = new HashMap<>();
 
+    public Hexagon (Hexagon copy){
+        this.id = copy.id;
+        this.properties = new HashMap<>(copy.properties);
+    }
+
     public Hexagon(long id, boolean A, boolean B, boolean C, boolean D, boolean E, boolean F, boolean S) {
         int max = 1, min = 0;
         this.id = id;
