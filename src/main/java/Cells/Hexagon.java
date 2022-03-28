@@ -9,6 +9,11 @@ public class Hexagon {
     private final long id;
     private Map<String, Boolean> properties = new HashMap<>();
 
+    public Hexagon (Hexagon copy){
+        this.id = copy.id;
+        this.properties = new HashMap<>(copy.properties);
+    }
+
     public Hexagon(long id, boolean A, boolean B, boolean C, boolean D, boolean E, boolean F, boolean S) {
         int max = 1, min = 0;
         this.id = id;
@@ -56,12 +61,22 @@ public class Hexagon {
         return keys;
     }
 
+    public boolean isRandom(){
+        return properties.get("R");
+    }
+
     public Map<String, Boolean> getProperties() {
         return properties;
     }
 
     public void setProperties(String key, Boolean value) {
         this.properties.put(key, value);
+    }
+
+    public void setProperties(Set<String> keys, Boolean value){
+        for (String key : keys){
+            this.properties.put(key,value);
+        }
     }
 
     public long getId() {
