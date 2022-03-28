@@ -53,9 +53,9 @@ public class ParticlesPropagator {
                             // roof[i-1,j], wall[i,j+1]
                             if (cells[i - 1][j].getProperties().get(S) && cells[i][j + 1].getProperties().get(S)) { //if roof and wall -> bumps to [i,j]E
                                 propagatedCells[i][j].setProperties(E, true);
-                            } else if (cells[i - 1][j].getProperties().get(S)) { //elif roof -> bumps to [i-1,j]C
+                            } else if (cells[i - 1][j].getProperties().get(S)) { //elif roof -> bumps to [i][j+1]F
                                 propagatedCells[i][j + 1].setProperties(F, true);
-                            } else if (cells[i][j + 1].getProperties().get(S)) { //elif wall -> bumps to [i][j+1]F
+                            } else if (cells[i][j + 1].getProperties().get(S)) { //elif wall -> bumps to [i-1,j]C
                                 propagatedCells[i - 1][j].setProperties(C, true);
                             }
                         } else { //moves to upper right cell
@@ -67,7 +67,14 @@ public class ParticlesPropagator {
                     if (hexagon.getProperties().get(C)) {
                         if (cells[i - 1][j - 1].getProperties().get(S)) { //bumped into a wall
                             // roof[i-1,j], wall[i,j-1]
-                        } else {
+                            if (cells[i - 1][j].getProperties().get(S) && cells[i][j - 1].getProperties().get(S)) { //if roof and wall -> bumps to [i,j]F
+                                propagatedCells[i][j].setProperties(F, true);
+                            } else if (cells[i - 1][j].getProperties().get(S)) { //elif roof -> bumps to [i,j-1]E
+                                propagatedCells[i][j - 1].setProperties(E, true);
+                            } else if (cells[i][j - 1].getProperties().get(S)) { //elif wall -> bumps to [i-1][j]B
+                                propagatedCells[i - 1][j].setProperties(B, true);
+                            }
+                        } else { //moves to upper left cell
                             propagatedCells[i - 1][j - 1].setProperties(C, true);
                         }
                     }
