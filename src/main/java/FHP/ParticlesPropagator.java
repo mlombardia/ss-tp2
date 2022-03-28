@@ -57,6 +57,8 @@ public class ParticlesPropagator {
                                 propagatedCells[i][j + 1].setProperties(F, true);
                             } else if (cells[i][j + 1].getProperties().get(S)) { //elif wall -> bumps to [i-1,j]C
                                 propagatedCells[i - 1][j].setProperties(C, true);
+                            }else{
+                                propagatedCells[i][j].setProperties(E, true);
                             }
                         } else { //moves to upper right cell
                             propagatedCells[i - 1][j + 1].setProperties(B, true);
@@ -73,6 +75,9 @@ public class ParticlesPropagator {
                                 propagatedCells[i][j - 1].setProperties(E, true);
                             } else if (cells[i][j - 1].getProperties().get(S)) { //elif wall -> bumps to [i-1][j]B
                                 propagatedCells[i - 1][j].setProperties(B, true);
+                            }else{
+                                propagatedCells[i][j].setProperties(F, true);
+
                             }
                         } else { //moves to upper left cell
                             propagatedCells[i - 1][j - 1].setProperties(C, true);
@@ -91,18 +96,36 @@ public class ParticlesPropagator {
                     // E -> 240°, [i+1,j-1]
                     if (hexagon.getProperties().get(E)) {
                         if (cells[i + 1][j - 1].getProperties().get(S)) { //bumped into a wall
-
-                        } else {
-                            propagatedCells[i + 1][j - 1].setProperties(C, true);
+                            // floor[i+1,j], wall[i,j-1]
+                            if (cells[i + 1][j].getProperties().get(S) && cells[i][j - 1].getProperties().get(S)) { //if floor and wall -> bumps to [i,j]B
+                                propagatedCells[i][j].setProperties(B, true);
+                            } else if (cells[i + 1][j].getProperties().get(S)) { //elif floor -> bumps to [i][j-1]C
+                                propagatedCells[i][j - 1].setProperties(C, true);
+                            } else if (cells[i][j - 1].getProperties().get(S)) { //elif wall -> bumps to [i+1,j]F
+                                propagatedCells[i + 1][j].setProperties(F, true);
+                            } else {
+                                propagatedCells[i][j].setProperties(B, true);
+                            }
+                        } else { //moves to bottom left cell
+                            propagatedCells[i + 1][j - 1].setProperties(E, true);
                         }
                     }
 
-                    // F -> 300°, [i+1, j-1]
+                    // F -> 300°, [i+1, j+1]
                     if (hexagon.getProperties().get(F)) {
-                        if (cells[i + 1][j - 1].getProperties().get(S)) { //bumped into a wall
-
-                        } else {
-                            propagatedCells[i + 1][j - 1].setProperties(C, true);
+                        if (cells[i + 1][j + 1].getProperties().get(S)) { //bumped into a wall
+                            // floor[i+1,j], wall[i,j+1]
+                            if (cells[i + 1][j].getProperties().get(S) && cells[i][j + 1].getProperties().get(S)) { //if floor and wall -> bumps to [i,j]C
+                                propagatedCells[i][j].setProperties(C, true);
+                            } else if (cells[i + 1][j].getProperties().get(S)) { //elif floor -> bumps to [i][j+1]B
+                                propagatedCells[i][j + 1].setProperties(B, true);
+                            } else if (cells[i][j + 1].getProperties().get(S)) { //elif wall -> bumps to [i+1,j]E
+                                propagatedCells[i + 1][j].setProperties(E, true);
+                            } else {
+                                propagatedCells[i][j].setProperties(C, true);
+                            }
+                        } else { //moves to bottom right cell
+                            propagatedCells[i + 1][j + 1].setProperties(F, true);
                         }
                     }
                 }
