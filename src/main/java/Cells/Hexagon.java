@@ -32,10 +32,10 @@ public class Hexagon {
         return amount;
     }
 
-    public Set<String> getAvailableSlots(){
+    public Set<String> getAvailableSlots() {
         Set<String> keys = new HashSet<>(properties.keySet());
-        for (String key: properties.keySet()){
-            if (properties.get(key)){
+        for (String key : properties.keySet()) {
+            if (properties.get(key)) {
                 keys.remove(key);
             }
         }
@@ -46,15 +46,15 @@ public class Hexagon {
         return properties;
     }
 
-    public void setProperties(Map<String, Boolean> properties) {
-        this.properties = properties;
+    public void setProperties(String key, Boolean value) {
+        this.properties.put(key, value);
     }
 
     public long getId() {
         return id;
     }
 
-    public void cleanHexagon(){
+    public void cleanHexagon() {
         properties.put("A", false);
         properties.put("B", false);
         properties.put("C", false);

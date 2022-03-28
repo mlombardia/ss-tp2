@@ -5,7 +5,7 @@ import Cells.Hexagon;
 import static FHP.ParticlesGenerator.*;
 
 /*
-   120° <- C. _____ . B -> 60°
+  120° <- C . _____ . B -> 60°
            /         \
 180° <- D .     *     . A -> 0°
            \         /
@@ -13,7 +13,7 @@ import static FHP.ParticlesGenerator.*;
 */
 
 /*
- [i-1,j-1] <- C. _____ . B -> [i-1, j+1]
+[i-1,j-1] <- C . _____ . B -> [i-1, j+1]
               /         \
 [i,j-1] <- D .   [i,j]   . A -> [i, j+1]
               \         /
@@ -41,36 +41,43 @@ public class ParticlesPropagator {
                     // A -> 0°, [i, j+1]
                     if (hexagon.getProperties().get(A)) {
                         if (cells[i][j + 1].getProperties().get(S)) { //bumped into a wall
-                            propagatedCells[i][j].getProperties().put(D, true);
-                        } else {
-                            propagatedCells[i][j + 1].getProperties().put(A, true);
+                            propagatedCells[i][j].setProperties(D, true); //moves to opposite direction, same cell
+                        } else {  //moves to right cell
+                            propagatedCells[i][j + 1].setProperties(A, true);
                         }
                     }
 
                     // B -> 60°, [i-1, j+1]
                     if (hexagon.getProperties().get(B)) {
                         if (cells[i - 1][j + 1].getProperties().get(S)) { //bumped into a wall
-
-                        } else {
-                            propagatedCells[i - 1][j + 1].getProperties().put(B, true);
+                            // roof[i-1,j], wall[i,j+1]
+                            if (cells[i - 1][j].getProperties().get(S) && cells[i][j + 1].getProperties().get(S)) { //if roof and wall -> bumps to [i,j]E
+                                propagatedCells[i][j].setProperties(E, true);
+                            } else if (cells[i - 1][j].getProperties().get(S)) { //elif roof -> bumps to [i-1,j]C
+                                propagatedCells[i][j + 1].setProperties(F, true);
+                            } else if (cells[i][j + 1].getProperties().get(S)) { //elif wall -> bumps to [i][j+1]F
+                                propagatedCells[i - 1][j].setProperties(C, true);
+                            }
+                        } else { //moves to upper right cell
+                            propagatedCells[i - 1][j + 1].setProperties(B, true);
                         }
                     }
 
                     // C -> 120°, [i-1,j-1]
                     if (hexagon.getProperties().get(C)) {
                         if (cells[i - 1][j - 1].getProperties().get(S)) { //bumped into a wall
-
+                            // roof[i-1,j], wall[i,j-1]
                         } else {
-                            propagatedCells[i - 1][j - 1].getProperties().put(C, true);
+                            propagatedCells[i - 1][j - 1].setProperties(C, true);
                         }
                     }
 
                     // D -> 180°, [i,j-1]
                     if (hexagon.getProperties().get(D)) {
                         if (cells[i][j - 1].getProperties().get(S)) { //bumped into a wall
-                            propagatedCells[i][j].getProperties().put(A, true);
-                        } else {
-                            propagatedCells[i][j - 1].getProperties().put(D, true);
+                            propagatedCells[i][j].setProperties(A, true); //moves to opposite direction, same cell
+                        } else { //moves to left cell
+                            propagatedCells[i][j - 1].setProperties(D, true);
                         }
                     }
 
@@ -79,7 +86,7 @@ public class ParticlesPropagator {
                         if (cells[i + 1][j - 1].getProperties().get(S)) { //bumped into a wall
 
                         } else {
-                            propagatedCells[i + 1][j - 1].getProperties().put(C, true);
+                            propagatedCells[i + 1][j - 1].setProperties(C, true);
                         }
                     }
 
@@ -88,7 +95,7 @@ public class ParticlesPropagator {
                         if (cells[i + 1][j - 1].getProperties().get(S)) { //bumped into a wall
 
                         } else {
-                            propagatedCells[i + 1][j - 1].getProperties().put(C, true);
+                            propagatedCells[i + 1][j - 1].setProperties(C, true);
                         }
                     }
                 }
