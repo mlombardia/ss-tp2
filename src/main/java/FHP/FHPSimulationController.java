@@ -18,15 +18,15 @@ public class FHPSimulationController {
         long endTime;
 
         while (getParticlesOnRight() < balanceParticlesAmount) {
-            System.out.println("particulas izquierda:" + (N-getParticlesOnRight()) + " " + balanceParticlesAmount);
+            System.out.println("particulas izquierda:" + getParticlesOnLeft() + " " + balanceParticlesAmount);
 
             CollisionSolver.solve();
             fileGenerator.writeXYZ(cells, N);
-            
+
             ParticlesPropagator.propagate();
             endTime = System.currentTimeMillis();
             fileGenerator.writeXYZ(propagatedCells, N);
-            fileGenerator.writeCSV(endTime - startTime, N,N - getParticlesOnRight(), getParticlesOnRight());
+            fileGenerator.writeCSV(endTime - startTime, N,getParticlesOnLeft(), getParticlesOnRight());
         }
         endTime = System.currentTimeMillis();
         System.out.printf("Balanced reached with %d particles on the right and %d on left, %d in total. %d particles were lost.\n", getParticlesOnRight(), getParticlesOnLeft(), getParticlesOnLeft() + getParticlesOnRight(), N - getParticlesOnLeft() - getParticlesOnRight());
