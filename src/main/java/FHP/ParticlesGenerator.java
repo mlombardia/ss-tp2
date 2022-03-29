@@ -2,6 +2,7 @@ package FHP;
 
 import Cells.Hexagon;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import static Parser.CliParser.N;
@@ -10,7 +11,7 @@ import static Parser.CliParser.N;
 public class ParticlesGenerator {
     public static int rows = 202;
     public static int cols = 203;
-    public static int partitionCol = (cols - 1) / 2;
+    public static int partitionCol = 101;
     public static Hexagon[][] cells = new Hexagon[rows][cols];
     public static Hexagon[][] propagatedCells = new Hexagon[rows][cols];
 
@@ -18,37 +19,48 @@ public class ParticlesGenerator {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 long id = (long) Math.abs(Math.pow(2, i) * Math.pow(3, j));
-                if (i == 0 || i == rows - 1) {
+                if (i == 0) {
                     cells[0][j] = new Hexagon(id, false, false, false, false, false, false, true);
+                } else if (i == rows - 1) {
                     cells[rows - 1][j] = new Hexagon(id, false, false, false, false, false, false, true);
-                } else if (j == 0 || j == cols - 1) {
+                } else if (j == 0) {
                     cells[i][0] = new Hexagon(id, false, false, false, false, false, false, true);
+                } else if (j == cols - 1) {
                     cells[i][cols - 1] = new Hexagon(id, false, false, false, false, false, false, true);
-                }
-                if (j == partitionCol) {
-                    if (isPartition(i)) {
-                        cells[i][partitionCol] = new Hexagon(id, false, false, false, false, false, false, false);
-                    } else if (!isPartition(i)) {
-                        cells[i][partitionCol] = new Hexagon(id, false, false, false, false, false, false, true);
-                    }
-                } else {
+                } else if (isPartition(i) && j == partitionCol) {
                     cells[i][j] = new Hexagon(id, false, false, false, false, false, false, false);
+                } else if (!isPartition(i) && j == partitionCol) {
+                    cells[i][j] = new Hexagon(id, false, false, false, false, false, false, true);
                 }
             }
         }
-        propagatedCells = cells.clone();
+        for (int i = 1; i < rows - 1; i++) {
+            for (int j = partitionCol + 1; j < cols - 1; j++) {
+                long id = (long) Math.abs(Math.pow(2, i) * Math.pow(3, j));
+                cells[i][j] = new Hexagon(id, false, false, false, false, false, false, false);
+            }
+        }
+        for (int i = 1; i < rows - 1; i++) {
+            for (int j = 1; j < partitionCol; j++) {
+                long id = (long) Math.abs(Math.pow(2, i) * Math.pow(3, j));
+                cells[i][j] = new Hexagon(id, false, false, false, false, false, false, false);
+            }
+        }
+
+        propagatedCells = Arrays.stream(cells).map(Hexagon[]::clone).toArray(Hexagon[][]::new);
         for (int particle = 0; particle < N; particle++) {
             createParticle();
         }
+
     }
 
     private static void createParticle() {
         boolean particleInserted = false;
         int row, col;
         while (!particleInserted) {
-            row = getRandom(0, rows - 1);
-            col = getRandom(0, partitionCol);
-            if (cells[row][col].getParticlesAmount() < 6) {
+            row = getRandom(1, rows - 2);
+            col = getRandom(1, partitionCol - 2);
+            if (cells[row][col].getParticlesAmount() < 3) {
                 setParticleDirection(cells[row][col]);
                 particleInserted = true;
             }
@@ -69,6 +81,6 @@ public class ParticlesGenerator {
     }
 
     private static boolean isPartition(int row) {
-        return row > 75 && row < 126;
+        return row > 70 && row < 121;
     }
 }
