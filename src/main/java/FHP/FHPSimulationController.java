@@ -1,5 +1,7 @@
 package FHP;
 
+import Cells.Hexagon;
+
 import static FHP.ParticlesGenerator.*;
 import static Parser.CliParser.*;
 
@@ -9,6 +11,7 @@ public class FHPSimulationController {
     public static void simulate() {
         ParticlesGenerator.generate();
         while (getParticlesOnRight() < balanceParticlesAmount) {
+            System.out.println(getParticlesOnRight());
             CollisionSolver.solve();
             ParticlesPropagator.propagate();
         }
@@ -19,6 +22,16 @@ public class FHPSimulationController {
         for (int i = 0; i < rows; i++) {
             for (int j = cols / 2; j < cols; j++) {
                 amount += propagatedCells[i][j].getParticlesAmount();
+            }
+        }
+        return amount;
+    }
+
+    public static int getAllParticles (Hexagon[][] hex){
+        int amount = 0;
+        for (int i = 0; i < hex.length; i++){
+            for (int j = 0; j< hex[1].length; j++){
+                amount+= hex[i][j].getParticlesAmount();
             }
         }
         return amount;

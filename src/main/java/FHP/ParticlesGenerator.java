@@ -60,8 +60,8 @@ public class ParticlesGenerator {
         while (!particleInserted) {
             row = getRandom(1, rows - 2);
             col = getRandom(1, partitionCol - 2);
-            if (cells[row][col].getParticlesAmount() < 3) {
-                setParticleDirection(cells[row][col]);
+            if (propagatedCells[row][col].getParticlesAmount() < 6) {
+                setParticleDirection(propagatedCells[row][col]);
                 particleInserted = true;
             }
         }
