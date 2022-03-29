@@ -31,8 +31,6 @@ public class ParticlesPropagator {
 
     public static void propagate() {
         Hexagon hexagon;
-        int b4=FHPSimulationController.getAllParticles(cells);
-        int aft = 0;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 hexagon = cells[i][j];
@@ -132,8 +130,6 @@ public class ParticlesPropagator {
                 hexagon.cleanHexagon();
             }
         }
-        aft = FHPSimulationController.getAllParticles(propagatedCells);
-        System.out.println("particulas dp de propagacion: "+aft +" particulas antes: "+ b4);
     }
 
 }

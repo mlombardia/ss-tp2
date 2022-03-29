@@ -9,7 +9,6 @@ import static FHP.ParticlesGenerator.*;
 public class CollisionSolver {
     public static void solve() {
         Hexagon hexagon;
-        int b4 = FHPSimulationController.getAllParticles(propagatedCells);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 hexagon = propagatedCells[i][j];
@@ -17,32 +16,32 @@ public class CollisionSolver {
                     case 2:
                         if (particlesAreContiguous(hexagon.getOccupiedSlots())) {
                             if (hexagon.isRandom()) {
+                                hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                                 hexagon.setProperties("B", true);
                                 hexagon.setProperties("E", true);
-                                hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                             } else {
+                                hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                                 hexagon.setProperties("C", true);
                                 hexagon.setProperties("F", true);
-                                hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                             }
                         } else if (particlesAreDiagonal(hexagon.getOccupiedSlots())) {
+                            hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                             hexagon.setProperties("A", true);
                             hexagon.setProperties("D", true);
-                            hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                         }
                         break;
                     case 3:
                         if (areSymmetrical(hexagon.getOccupiedSlots())) {
                             if (firstCase(hexagon.getOccupiedSlots())) {
+                                hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                                 hexagon.setProperties("A", true);
                                 hexagon.setProperties("C", true);
                                 hexagon.setProperties("E", true);
-                                hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                             } else {
+                                hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                                 hexagon.setProperties("B", true);
                                 hexagon.setProperties("D", true);
                                 hexagon.setProperties("F", true);
-                                hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                             }
                         }
                         break;
@@ -50,24 +49,24 @@ public class CollisionSolver {
                         if (correctForm(hexagon.getOccupiedSlots())) {
                             if (isBCEF(hexagon.getOccupiedSlots())) {
                                 if (hexagon.isRandom()) {
+                                    hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                                     hexagon.setProperties("A", true);
                                     hexagon.setProperties("D", true);
                                     hexagon.setProperties("C", true);
                                     hexagon.setProperties("F", true);
-                                    hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                                 } else {
+                                    hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                                     hexagon.setProperties("A", true);
                                     hexagon.setProperties("D", true);
                                     hexagon.setProperties("B", true);
                                     hexagon.setProperties("E", true);
-                                    hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                                 }
                             } else {
+                                hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                                 hexagon.setProperties("B", true);
                                 hexagon.setProperties("E", true);
                                 hexagon.setProperties("C", true);
                                 hexagon.setProperties("F", true);
-                                hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                             }
                         }
                         break;
@@ -78,9 +77,6 @@ public class CollisionSolver {
                 hexagon.cleanHexagon();
             }
         }
-        int aft = FHPSimulationController.getAllParticles(cells);
-        System.out.println("particulas dp de colision: "+aft +" particulas antes: "+ b4);
-
     }
 
     private static boolean particlesAreContiguous(Set<String> particles) {
