@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Set;
 
 import static Parser.CliParser.N;
+import static Parser.CliParser.D;
 
 
 public class ParticlesGenerator {
@@ -81,6 +82,7 @@ public class ParticlesGenerator {
     }
 
     private static boolean isPartition(int row) {
-        return row > 70 && row < 121;
+
+        return (row > ((rows-D)/2)) && (row < ((rows+D)/2));
     }
 }

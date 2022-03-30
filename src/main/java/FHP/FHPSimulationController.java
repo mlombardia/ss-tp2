@@ -5,7 +5,7 @@ import static FHP.ParticlesGenerator.*;
 import static Parser.CliParser.*;
 
 public class FHPSimulationController {
-    private static final int balanceParticlesAmount = (int) Math.floor((double) (N / 2) * 0.75); //85% of half the total amount of particles
+    private static final int balanceParticlesAmount = (int) Math.floor((double) (N / 2) * 0.85); //85% of half the total amount of particles
     private static final FileGenerator fileGenerator = new FileGenerator();
 
     public static void simulate() {

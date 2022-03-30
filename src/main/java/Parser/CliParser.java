@@ -43,7 +43,7 @@ public class CliParser {
             } else if (commandLine.hasOption("N")) {
                 N = Integer.parseInt(commandLine.getOptionValue("N"));
             } else {
-                N = 1000;
+                N = 2000;
             }
             if (commandLine.hasOption("d")) {
                 D = Integer.parseInt(commandLine.getOptionValue("d"));

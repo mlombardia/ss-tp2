@@ -4,6 +4,8 @@ import Cells.Hexagon;
 
 import java.io.*;
 
+import static Parser.CliParser.D;
+
 public class FileGenerator {
     private FileWriter fw1;
     private FileWriter fw2;
@@ -41,12 +43,15 @@ public class FileGenerator {
             fw.close();
             fw = new FileWriter("walls.xyz", true);
             BufferedWriter buffer = new BufferedWriter(fw);
-            buffer.write("1921\n");
-            buffer.write("wall: x y\n");
+            int aux = 2025 - 2*D;
+            StringBuilder as =  new StringBuilder();
+            as.append(aux);
+            buffer.write(as + "\n");
+            buffer.write("x y\n");
             for(int i=0; i<404; i++){
                 buffer.write((distanceX*0) + " " + (distanceY*i) + "\n");
                 buffer.write((distanceX+distanceX*406) + " " + (distanceY*i) + "\n");
-                if(i<=138 || i>=242){
+                if(i<=(202-D) || i>=(202+D)){
                     buffer.write((distanceX*202) + " " + (distanceY*i) + "\n");
                 }
             }
