@@ -17,12 +17,12 @@ public class CollisionSolver {
                         if (particlesAreContiguous(hexagon.getOccupiedSlots())) {
                             if (hexagon.isRandom()) {
                                 hexagon.setProperties(hexagon.getOccupiedSlots(), false);
-                                hexagon.setProperties("B", true);
-                                hexagon.setProperties("E", true);
-                            } else {
-                                hexagon.setProperties(hexagon.getOccupiedSlots(), false);
                                 hexagon.setProperties("C", true);
                                 hexagon.setProperties("F", true);
+                            } else {
+                                hexagon.setProperties(hexagon.getOccupiedSlots(), false);
+                                hexagon.setProperties("B", true);
+                                hexagon.setProperties("E", true);
                             }
                         } else if (particlesAreDiagonal(hexagon.getOccupiedSlots())) {
                             hexagon.setProperties(hexagon.getOccupiedSlots(), false);
