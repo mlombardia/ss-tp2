@@ -43,14 +43,14 @@ public class CliParser {
             } else if (commandLine.hasOption("N")) {
                 N = Integer.parseInt(commandLine.getOptionValue("N"));
             } else {
-                N = 2000;
+                N = 3000;
             }
             if (commandLine.hasOption("d")) {
                 D = Integer.parseInt(commandLine.getOptionValue("d"));
             } else if (commandLine.hasOption("D")) {
                 N = Integer.parseInt(commandLine.getOptionValue("D"));
             } else {
-                D = 50;
+                D = 50;        // que se fije si es < a 200
             }
         } catch (ParseException e) {
             System.out.println(e.getMessage() + ".");

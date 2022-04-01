@@ -32,16 +32,16 @@ public class FileGenerator {
         }catch (IOException e){
             e.printStackTrace();
         }
-        writeWall();
+        writeBorders();
     }
 
-    private void writeWall(){
+    private void writeBorders(){
         double distanceX = 0.5;
         double distanceY = (Math.sqrt(3)/2)/2;
         try{
-            FileWriter fw = new FileWriter("walls.xyz");
+            FileWriter fw = new FileWriter("Borders.xyz");
             fw.close();
-            fw = new FileWriter("walls.xyz", true);
+            fw = new FileWriter("Borders.xyz", true);
             BufferedWriter buffer = new BufferedWriter(fw);
             int aux = 2025 - 2*D;
             StringBuilder as =  new StringBuilder();
@@ -49,14 +49,14 @@ public class FileGenerator {
             buffer.write(as + "\n");
             buffer.write("x y\n");
             for(int i=0; i<404; i++){
-                buffer.write((distanceX*0) + " " + (distanceY*i) + "\n");
+                buffer.write(0 + " " + (distanceY*i) + "\n");
                 buffer.write((distanceX+distanceX*406) + " " + (distanceY*i) + "\n");
                 if(i<=(202-D) || i>=(202+D)){
                     buffer.write((distanceX*202) + " " + (distanceY*i) + "\n");
                 }
             }
             for(int j=0; j<406; j++){
-                buffer.write((distanceX*j) + " " + (distanceY*0) + "\n");
+                buffer.write((distanceX*j) + " " + 0 + "\n");
                 buffer.write((distanceX+distanceX*j) + " " + (distanceY*404) + "\n");
             }
             buffer.close();
