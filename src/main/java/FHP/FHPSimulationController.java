@@ -5,7 +5,7 @@ import static FHP.ParticlesGenerator.*;
 import static Parser.CliParser.*;
 
 public class FHPSimulationController {
-    private static final int balanceParticlesAmount = (int) Math.floor((double) (N / 2) * 0.95); //95% of half the total amount of particles
+    private static final int balanceParticlesAmount = (int) Math.floor((double) (N / 2) * 0.90); //90% of half the total amount of particles
     private static final FileGenerator fileGenerator = new FileGenerator();
 
     public static void simulate() {
@@ -16,9 +16,9 @@ public class FHPSimulationController {
 
         long startTime = System.currentTimeMillis();
         long endTime;
+        int aux = 0;
 
-        while (getParticlesOnRight() < balanceParticlesAmount) {
-            System.out.println("particulas izquierda:" + getParticlesOnLeft() + " " + balanceParticlesAmount);
+        while (getParticlesOnRight() < balanceParticlesAmount) { //getParticlesOnRight() < balanceParticlesAmount;;
 
             CollisionSolver.solve();
             fileGenerator.writeXYZ(cells, N);
