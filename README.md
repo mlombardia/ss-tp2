@@ -13,7 +13,7 @@ mvn package
 ```
 o también
 ```sh
-mvn package o mvn install
+mvn install
 ```
 Una vez ejecutado este comando, se creará un archivo `ss-tp2-1.0-SNAPSHOT-jar-with-dependencies.jar`.
 Moverse al directorio en el cual se encuentre ubicado el mismo y ejecutar
