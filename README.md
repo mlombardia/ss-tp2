@@ -9,6 +9,10 @@ Trabajo Práctico Nro. 2: Autómatas Celulares
 ## Ejecución
 Ubicandose en el directorio ss-tp2, ejecutar
 ```sh
+mvn package
+```
+o también
+```sh
 mvn package o mvn install
 ```
 Una vez ejecutado este comando, se creará un archivo `ss-tp2-1.0-SNAPSHOT-jar-with-dependencies.jar`.
