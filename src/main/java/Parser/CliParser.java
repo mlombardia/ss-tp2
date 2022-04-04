@@ -47,10 +47,16 @@ public class CliParser {
             }
             if (commandLine.hasOption("d")) {
                 D = Integer.parseInt(commandLine.getOptionValue("d"));
+                if (D > 200){
+                    System.out.println("The specified number is too big, by default D will now be 50. ");
+                }
             } else if (commandLine.hasOption("D")) {
-                N = Integer.parseInt(commandLine.getOptionValue("D"));
+                D = Integer.parseInt(commandLine.getOptionValue("D"));
+                if (D > 200){
+                    System.out.println("The specified number is too big, by default D will now be 50. ");
+                }
             } else {
-                D = 50;        // que se fije si es < a 200
+                D = 50;
             }
         } catch (ParseException e) {
             System.out.println(e.getMessage() + ".");
